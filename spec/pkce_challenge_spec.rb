@@ -28,4 +28,16 @@ RSpec.describe PkceChallenge do
       expect { invalid.code_verifier }.to raise_error(PkceChallenge::LengthOutOfRangeError)
     end
   end
+
+  describe "#pkce_valid?" do
+    let(:challenge) { PkceChallenge.challenge }
+
+    it "should returns true/false based on provided data" do
+      code_challenge = challenge.code_challenge
+      code_verifier = challenge.verifier
+
+      expect(PkceChallenge.pkce_valid?(code_verifier: code_verifier, code_challenge: code_challenge)).to be_truthy
+      expect(PkceChallenge.pkce_valid?(code_verifier: code_verifier, code_challenge: 'random')).to be_falsy
+    end
+  end
 end

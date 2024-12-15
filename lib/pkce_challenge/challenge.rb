@@ -19,6 +19,10 @@ module PkceChallenge
       @code_challenge ||= generate_pkce_challenge
     end
 
+    def pkce_valid?(code_verifier:, code_challenge:)
+      code_challenge == generate_pkce_challenge(code_verifier)
+    end
+
     # constants definition
 
     CHAR_LENGTH = {
@@ -39,8 +43,8 @@ module PkceChallenge
       urlsafe_base64(SecureRandom.base64((length * 3) / 4))
     end
 
-    def generate_pkce_challenge
-      urlsafe_base64(Digest::SHA256.base64digest(code_verifier))
+    def generate_pkce_challenge(verifier=nil)
+      urlsafe_base64(Digest::SHA256.base64digest(verifier || code_verifier))
     end
 
     def urlsafe_base64(base64_str)

@@ -23,4 +23,23 @@ module PkceChallenge
   def self.challenge(options = {})
     PkceChallenge::Challenge.new(options)
   end
+
+  # Validates code challenge and verfiier
+  #
+  # Example:
+  #   >> PkceChallenge.pkce_valid?(code_verifier: '', code_challenge: '')
+  #   => true
+  #
+  # == Parameters:
+  # code_verifier::
+  #   A String containing code_verifier
+  # code_challenge::
+  #   A String containing code_challenge
+  #
+  # == Returns:
+  # An instance of Bool
+  #
+  def self.pkce_valid?(code_verifier:, code_challenge:)
+    PkceChallenge::Challenge.new.pkce_valid?(code_verifier: code_verifier, code_challenge: code_challenge)
+  end
 end

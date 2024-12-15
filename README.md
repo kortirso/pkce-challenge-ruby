@@ -44,6 +44,11 @@ pkce_challenge.code_verifier # a dynamically created cryptographically random ke
 pkce_challenge.code_challenge # a BASE64-URL-encoded string of the SHA256 hash of the code verifier
 ```
 
+Additionally you can verify provided code_challenge based on code_verifier
+```ruby
+PkceChallenge.pkce_valid?(code_verifier: code_verifier, code_challenge: code_challenge)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
